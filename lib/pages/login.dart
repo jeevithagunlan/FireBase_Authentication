@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_authentication/widgets/login_function.dart';
+import 'package:login_authentication/function/auth_fun.dart';
 
 class LoginAuthScreen extends StatefulWidget {
   const LoginAuthScreen({super.key});
@@ -48,7 +48,6 @@ class _LoginAuthScreenState extends State<LoginAuthScreen> {
                       },
                     )
                   : Container(),
-
               TextFormField(
                 key: ValueKey("email"),
                 decoration: InputDecoration(hintText: "Enter Email"),
@@ -88,9 +87,11 @@ class _LoginAuthScreenState extends State<LoginAuthScreen> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      isLogin
-                          ? signUp(email, password)
-                          : signIn(email, password);
+                      if (isLogin) {
+                        signIn(email, password);
+                      } else {
+                        signUp(email, password);
+                      }
                     }
                   },
                   child: isLogin ? Text("Login") : Text("Sign Up"),
